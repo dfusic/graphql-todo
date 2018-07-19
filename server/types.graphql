@@ -1,0 +1,9 @@
+# Data model for todo app
+
+type Todo @model{
+  id: ID! @isUnique #readonly
+  createdAt: DateTime! #readonly
+  updatedAt: DateTime! #readonly
+
+  message: String!
+}
