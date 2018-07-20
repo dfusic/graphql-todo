@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import './App.css';
 import ApolloClient from 'apollo-boost';
 import gql from 'graphql-tag';
 
-import MessageCounter from './components/MessageCounter';
-import MessageInput from './components/MessageInput';
-import MessagesContainer from './components/MessagesContainer';
+import MessageCounter from './MessageCounter';
+import MessageInput from './MessageInput';
+import MessagesContainer from './MessagesContainer';
 
 
 // init graphql client and give it graphql server endpoint
@@ -103,13 +102,55 @@ class App extends Component {
        console.error(error);
       })
   }
+  deleteTodo = (event, id) => {
+    // call mutation to delete todo via ID
+    const DELETE_TODO_MUTATION = {
+      mutation: gql`
+      mutation{
+        deleteTodo( 
+          id: "${id}"
+        ),{
+          message
+          id
+          createdAt
+        }
+      }
+      `
+    };
+    client.mutate(DELETE_TODO_MUTATION)
+    .then((data)=>{
+      //if the element has been succesfully deleted from the database
+      //find index of the deleted element 
+      let deletedElemIndex = this.state.todoes.findIndex(todo=>{
+        return todo.id === id;
+      });
+      // copy the state
+      let todoesCopy = [...this.state.todoes];
+      // remove the element from the state using .splice
+      todoesCopy.splice(deletedElemIndex, 1);
+      // replace old state with updated state
+      this.setState({
+        todoes: todoesCopy
+      });
+    })
+    .catch((error)=>{
+      //if there was a problem deleting the element
+      alert("There has been an error! Check the console!");
+      console.error(error);
+    })
+  }
 
+  // edited todo
   render() {
     return (
       <div className="App">
-        <MessageCounter />
+        <MessageCounter 
+        count={this.state.todoes.length}
+        />
         <MessagesContainer 
         todoes={this.state.todoes}
+        deleteTodo={this.deleteTodo}
+
         />
         <MessageInput 
         handleNewTodo={this.handleNewTodo.bind(this)}

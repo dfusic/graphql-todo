@@ -9,6 +9,8 @@ const MessagesContainer = props => {
       message={todo.message}
       id={todo.id}
       key={todo.id}
+      deleteTodo={(event)=>props.deleteTodo(event, todo.id)}
+      createdAt={todo.createdAt}
       />
     })
   }
