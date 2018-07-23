@@ -1,0 +1,31 @@
+.MessageInput{
+  width: 100%;
+  text-align: center;
+  form{
+    width: 100%;
+    input[type=text]{
+      width: 70%;
+      border: 1px solid rgba(0,0,0,.1);
+      padding: 5px 15px;
+      font-family: 'Ubuntu', sans-serif;
+      transition: box-shadow 200ms ease-in-out;
+      &:focus{
+        outline: none;
+        box-shadow: 0 0 5px rgb(68, 215, 255);
+        border: 1px solid rgb(68, 215, 255);
+      }
+    }
+    input[type=submit]{
+      width: 20%;
+      padding: 5px 15px;
+      border: 1px solid rgba(0,0,0,.1);
+      background-color: lavender;
+      font-family: 'Ubuntu', sans-serif;
+      &:focus{
+        outline: none;
+        box-shadow: 0 0 5px rgb(68, 215, 255);
+        border: 1px solid rgb(68, 215, 255);
+      }
+    }
+  }
+}
