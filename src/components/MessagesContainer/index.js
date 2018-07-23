@@ -1,25 +1,33 @@
-import React from 'react';
+import React, {Component} from 'react';
 import MessageSingle from '../MessageSingle';
 
-const MessagesContainer = props => {
-  let messagesOutput = null;
-  if(props.todoes.length > 0){
-    messagesOutput = props.todoes.map(todo=>{
-      return <MessageSingle 
-      message={todo.message}
-      id={todo.id}
-      key={todo.id}
-      deleteTodo={(event)=>props.deleteTodo(event, todo.id)}
-      createdAt={todo.createdAt}
-      />
-    })
+import './MessagesContainer.scss';
+class MessagesContainer extends Component {
+
+  render(){
+    let messagesOutput = null;
+    if(this.props.todoes.length > 0){
+      messagesOutput = this.props.todoes.map(todo=>{
+        return <MessageSingle 
+        message={todo.message}
+        id={todo.id}
+        key={todo.id}
+        deleteTodo={(event)=>this.props.deleteTodo(event, todo.id)}
+        createdAt={todo.createdAt}
+        />
+      })
+  }else{
+    messagesOutput = <h4>No todo's, add one. :) </h4>;
   }
-  return (
-    <div className="MessagesContainer">
-      <h1>Messages Container</h1>
-      {messagesOutput}
-    </div>
-  )
+    return (
+      <div className="MessagesContainer-parent" ref="scrollParent">
+        <div className="MessagesContainer">
+          {messagesOutput}
+        </div>
+      </div>
+    );
+  }
+  
 }
 
 export default MessagesContainer;

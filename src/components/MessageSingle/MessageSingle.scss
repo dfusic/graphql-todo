@@ -1,0 +1,74 @@
+.MessageSingle{
+  animation: scaleIn 200ms forwards;
+  &-input{
+    margin-left: 15px;
+    width: calc(95% - 65px);
+    position: relative;
+    bottom: 20px;
+    display: inline-block;
+    &-triangle{
+      width: 0; 
+      height: 0; 
+      border-top: 7px solid transparent;
+      border-bottom: 7px solid transparent; 
+      border-right:8px solid #eee;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: -8px; 
+    }
+    
+    input{
+      width: 100%;
+      border: none;
+      background-color: #eee;
+      padding: 15px 0 15px 15px;
+      font-size: .7em;
+      
+    }
+    &-edit{
+      position: absolute;
+      right: -8px;
+      top: 3px;
+      opacity: 1;
+      transition: opacity 100ms ease-in-out;
+      button{
+        padding: 11px;
+        border: none;
+        background-color: #eee;
+        cursor: pointer;
+        img{
+          width: 11px;
+          height: auto;
+        }
+      }
+    }
+  }
+  &-profileImg{
+    display: inline;
+  }
+  &-meta{
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    bottom: 15px;
+    width: 100%;
+    p{
+      margin: 0;
+      font-size: .8em;
+      opacity: .8;
+    }
+  }
+}
+
+@keyframes scaleIn{
+  0%{
+    transform: scale(0);
+  }100%{
+    transform: scale(1);
+  }
+}
+
+.MessageSingle-input > input:focus .MessageSingle-input > .MessageSingle-input-edit > button{
+  opacity: 0;
+}

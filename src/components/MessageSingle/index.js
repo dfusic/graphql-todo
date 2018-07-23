@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import gql from 'graphql-tag';
 import ApolloClient from 'apollo-boost';
-import './MessageSingle.css';
+import './MessageSingle.scss';
+import deleteSvg from '../../assets/delete.svg';
+import editSvg from '../../assets/edit.svg';
 import userImg from '../../assets/user.jpeg';
 // declare client to send edit mutation
 const client = new ApolloClient({
@@ -11,7 +13,16 @@ const client = new ApolloClient({
 class MessageSingle extends Component {
   state = {
     input: this.props.message,
-    postDate: ""
+    postDate: "",
+    userImg: {
+      background: `url(${userImg}) center center no-repeat`,
+      backgroundSize: 'cover',
+      height: '50px',
+      width: '50px',
+      borderRadius: '50%',
+      display: 'inline-block'
+    },
+    animation: 'fadeIn 200ms forwards'
   }
   todoMsgFocus(){
     // focus on message that is sibling of the clicked button
@@ -65,7 +76,6 @@ class MessageSingle extends Component {
     // when the component will mount, convert the ISO date format to more readable one
     let todoDate = new Date(this.props.createdAt);
     let timeDate = todoDate.toTimeString();
-
     this.setState({
       date: `${todoDate.toDateString()} ${timeDate.substring(0,8)}`
     })
@@ -73,25 +83,32 @@ class MessageSingle extends Component {
   render(){
     return (
       <div className="MessageSingle" key={this.props.id}>
-      <img src={userImg} alt="This is you!" height={100}/>
-      <input 
-      type="text"
-      value={this.state.input}
-      id={this.props.id}
-        ref={(input)=>{ 
-          this.todoMsg = input;
-        }}
-      onChange={this.getEdited}
-      onBlur={this.submitEdited}
-      />
-      <p>{this.state.date}</p>
-      <button onClick={this.todoMsgFocus.bind(this)}>
-      Edit
-      </button>
-      <button 
-      onClick={this.props.deleteTodo}>
-      Delete
-      </button>
+      <div style={this.state.userImg} className="MessageSingle-profileImg"></div>
+      <div className="MessageSingle-input">
+        <div className="MessageSingle-input-triangle"></div>
+        <input 
+        type="text"
+        value={this.state.input}
+        id={this.props.id}
+          ref={(input)=>{ 
+            this.todoMsg = input;
+          }}
+        onChange={this.getEdited}
+        onBlur={this.submitEdited}
+        />
+        <div className="MessageSingle-input-edit">
+          <button onClick={this.todoMsgFocus.bind(this)}>
+          <img src={editSvg} alt="Edit Todo"/>
+          </button>
+          <button 
+          onClick={this.props.deleteTodo}>
+          <img src={deleteSvg} alt="Delete Todo"/>
+          </button>
+        </div>
+      </div>
+      <div className="MessageSingle-meta">
+        <p className="MessageSingle-meta-date">{this.state.date}</p>
+      </div>
     </div>
     );
     

@@ -6,7 +6,7 @@ import MessageCounter from './MessageCounter';
 import MessageInput from './MessageInput';
 import MessagesContainer from './MessagesContainer';
 
-
+import './App.scss';
 // init graphql client and give it graphql server endpoint
 const client = new ApolloClient({
   uri: 'https://api.graph.cool/simple/v1/cjjsr6hcs2y6m0103trvtj93i'

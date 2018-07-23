@@ -1,9 +1,0 @@
-.MessageSingle > input{
-  border: none;
-  background-color: transparent;
-  color: #4b4b4b;
-}
-.MessageSingle > input:focus{
-  outline: none;
-  border: 1px solid #4b4b4b;
-}
